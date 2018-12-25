@@ -37,13 +37,48 @@ html {
 .header {
     @include width(100%);
     @include height(40px);
-    #{$bg}: #303030;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    ul {
+        @include height(30px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 55%;
+        border: 1px solid #ccc;
+        text-align: center;
+        border-radius: 10px;
+        li {
+            @include height(20px);
+            margin: 5px 0;
+            @include width(30px);
+        }
+        li:nth-child(1) {
+            border-right: 1px solid #ccc;
+        }
+    }
 }
 
 .main {
     @include width(100%);
     flex: 1;
     overflow: auto;
+    .input {
+        @include width(90%);
+        @include height(30px);
+        margin: 10px 5%;
+        background: #ccc;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        input {
+            @include width(90%);
+            @include height(20px);
+            line-height: 20px;
+            border: 0;
+            margin: 5px 5%;
+        }
+    }
 }
 
 .footer {
