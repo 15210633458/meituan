@@ -79,6 +79,44 @@ html {
             margin: 5px 5%;
         }
     }
+    .swiper-container {
+        @include width(100%);
+        margin: 10px 0;
+        .swiper-slide {
+            @include width(100%);
+            display: flex;
+            flex-wrap: wrap;
+            dl {
+                @include width(20%);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                dt {
+                    img {
+                        @include width(100%);
+                        @include height(100%);
+                    }
+                }
+                dd {
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .con {
+        @include width(100%);
+        @include height(150px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .dls {
+            flex: 9;
+        }
+        .more {
+            flex: 1
+        }
+    }
 }
 
 .footer {

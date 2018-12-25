@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="./style/swiper.css">
     <link rel="stylesheet" href="./style/font/iconfont.css">
     <link rel="stylesheet" href="./style/style.css">
 </head>
@@ -23,13 +24,20 @@
             <div class="input">
                 <input type="text" placeholder="米线">
             </div>
-            <div class="swiper">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide page1">
 
+                    </div>
+                    <div class="swiper-slide page2">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
             <div class="con">
                 <div class="dls">
                     <dl>
-                        <dt><img src="" alt=""></dt>
+                        <dt><img src="./imgs/a1.png" alt=""></dt>
                         <dd>
                             <p>红烧狮子头</p>
                             <p>
@@ -61,7 +69,53 @@
             </dl>
         </div>
     </div>
-    <script src="./scripts/flexiable.js"></script>
+
 </body>
+<script src="./scripts/flexiable.js"></script>
+<script src="./scripts/swiper.js"></script>
+<script>
+    var page1 = document.querySelectorAll('.page1')[0];
+    var page2 = document.querySelectorAll('.page2')[0];
+    var swiper = new Swiper(".swiper-container", {
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+        }
+    })
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', 'data/swiper.json', true)
+    xhr.send(null)
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                //console.log(xhr.responseText)
+                var data = JSON.parse(xhr.responseText)
+                var html = '';
+
+                data.page1.forEach((i) => {
+                    html += `<dl>
+                            <dt>
+                                <img src="${i.img}" alt="">
+                            </dt>
+                            <dd>${i.title}</dd>
+                        </dl>`
+                })
+                page1.innerHTML = html;
+                var src = '';
+                data.page2.forEach((i) => {
+                    src += `<dl>
+                            <dt>
+                                <img src="${i.img}" alt="">
+                            </dt>
+                            <dd>${i.title}</dd>
+                        </dl>`
+                })
+
+                page2.innerHTML = src
+
+            }
+        }
+    }
+</script>
 
 </html>
