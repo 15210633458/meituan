@@ -20,34 +20,34 @@
                 <li class="icon iconfont icon-shoucang"></li>
             </ul>
         </div>
-        <div class="main">
+        <div class="main" id="main">
             <div class="input">
                 <input type="text" placeholder="米线">
             </div>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide page1">
-
-                    </div>
-                    <div class="swiper-slide page2">
-                    </div>
+                    <div class="swiper-slide page1"></div>
+                    <div class="swiper-slide page2"></div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
             <div class="con">
                 <div class="dls">
-                    <dl>
-                        <dt><img src="./imgs/a1.png" alt=""></dt>
-                        <dd>
-                            <p>红烧狮子头</p>
-                            <p>
-                                ￥<span>12.9</span><span>免费送货</span>
-                            </p>
-                            <p>
-                                单买价 <span>￥32</span>
-                            </p>
-                        </dd>
-                    </dl>
+                    <div id="dll">
+                        <dl>
+                            <dt><img src="./imgs/a1.png" alt=""></dt>
+                            <dd>
+                                <p>红烧狮子头</p>
+                                <p>
+                                    <span>12.9</span><span>免费送货</span>
+                                </p>
+                                <p>
+                                    单买价 <span>￥32</span>
+                                </p>
+                            </dd>
+                        </dl>
+                    </div>
+
                 </div>
                 <div class="more">
                     点击查看更多
@@ -55,15 +55,15 @@
             </div>
         </div>
         <div class="footer">
-            <dl>
+            <dl id="sy">
                 <dt class="icon iconfont icon-shouye"></dt>
                 <dd>首页</dd>
             </dl>
-            <dl>
+            <dl id="dd">
                 <dt class="icon iconfont icon-quanbudingdan-01"></dt>
                 <dd>订单</dd>
             </dl>
-            <dl>
+            <dl id="wd">
                 <dt class="icon iconfont icon-wode"></dt>
                 <dd>我的</dd>
             </dl>
@@ -74,47 +74,120 @@
 <script src="./scripts/flexiable.js"></script>
 <script src="./scripts/swiper.js"></script>
 <script>
-    var page1 = document.querySelectorAll('.page1')[0];
-    var page2 = document.querySelectorAll('.page2')[0];
     var swiper = new Swiper(".swiper-container", {
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-        }
-    })
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+            }
+        })
+        //获取轮播图数据
     var xhr = new XMLHttpRequest();
     xhr.open('get', 'data/swiper.json', true)
-    xhr.send(null)
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 //console.log(xhr.responseText)
-                var data = JSON.parse(xhr.responseText)
+                var data = JSON.parse(xhr.responseText);
+                var page1 = document.querySelectorAll('.page1')[0];
+                var page2 = document.querySelectorAll('.page2')[0];
                 var html = '';
 
                 data.page1.forEach((i) => {
+                    console.log(i)
                     html += `<dl>
                             <dt>
                                 <img src="${i.img}" alt="">
                             </dt>
                             <dd>${i.title}</dd>
                         </dl>`
+                    console.log(html)
                 })
                 page1.innerHTML = html;
+
                 var src = '';
                 data.page2.forEach((i) => {
+                    console.log(i)
                     src += `<dl>
                             <dt>
                                 <img src="${i.img}" alt="">
                             </dt>
                             <dd>${i.title}</dd>
                         </dl>`
+                    console.log(src)
                 })
-
                 page2.innerHTML = src
 
             }
         }
+    }
+    xhr.send()
+        //店铺渲染
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', 'data/shop.json', true)
+    xhr.onload = function(e) {
+        if (e.target.status == 200) {
+            var data = JSON.parse(e.target.responseText);
+            var dll = document.getElementById('dll');
+            var htmls = '';
+
+            data.forEach((i) => {
+                htmls += ` <dl>
+                        <dt><img src="${i.img}" alt=""></dt>
+                        <dd>
+                            <p>${i.title}</p>
+                            <p>
+                                <span>${i.price}</span><span>免费送货</span>
+                            </p>
+                            <p>
+                                单买价 <span>￥${i.dan}</span>
+                            </p>
+                        </dd>
+                    </dl>`
+            })
+            dll.innerHTML = htmls;
+        }
+    }
+    xhr.send()
+
+    main.onclick = function() {
+        main.innerHTML = ` <div class="input">
+                <input type="text" placeholder="米线">
+            </div>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide page1"></div>
+                    <div class="swiper-slide page2"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="con">
+                <div class="dls">
+                    <div id="dll">
+                        <dl>
+                            <dt><img src="./imgs/a1.png" alt=""></dt>
+                            <dd>
+                                <p>红烧狮子头</p>
+                                <p>
+                                    <span>12.9</span><span>免费送货</span>
+                                </p>
+                                <p>
+                                    单买价 <span>￥32</span>
+                                </p>
+                            </dd>
+                        </dl>
+                    </div>
+
+                </div>
+                <div class="more">
+                    点击查看更多
+                </div>
+            </div>`
+    }
+    dd.onclick = function() {
+        main.innerHTML = "订单"
+    }
+    wd.onclick = function() {
+        main.innerHTML = "我的"
     }
 </script>
 

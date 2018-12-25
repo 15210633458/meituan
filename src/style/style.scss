@@ -81,7 +81,8 @@ html {
     }
     .swiper-container {
         @include width(100%);
-        margin: 10px 0;
+        @include height(210px);
+        //  margin: 10px 0;
         .swiper-slide {
             @include width(100%);
             display: flex;
@@ -95,7 +96,7 @@ html {
                 dt {
                     img {
                         @include width(100%);
-                        @include height(100%);
+                        @include height(auto);
                     }
                 }
                 dd {
@@ -111,10 +112,42 @@ html {
         justify-content: center;
         align-items: center;
         .dls {
+            @include width(auto);
+            @include height(190px);
             flex: 9;
+            overflow: scroll;
+            div {
+                display: flex;
+                dl {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0 5px;
+                    dd {
+                        p:nth-child(2) {
+                            color: red;
+                            height: 30px;
+                            line-height: 30px;
+                            span:nth-child(1) {
+                                font-size: 18px;
+                            }
+                            span:nth-child(2) {
+                                border: 1px solid red;
+                                border-radius: 10px;
+                            }
+                        }
+                        p:nth-child(3) {
+                            span {
+                                color: red;
+                            }
+                        }
+                    }
+                }
+            }
         }
         .more {
-            flex: 1
+            flex: 0.5;
         }
     }
 }
