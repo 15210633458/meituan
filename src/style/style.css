@@ -243,6 +243,7 @@ html {
   width: 100%;
   flex: 1;
   overflow: auto;
+  display: block;
 }
 
 .main .input {
@@ -338,6 +339,14 @@ html {
 
 .main .con .more {
   flex: 0.5;
+}
+
+#main1 {
+  display: none;
+}
+
+#main2 {
+  display: none;
 }
 
 .footer {

@@ -66,6 +66,12 @@
                 </div>
             </div>
         </div>
+        <div id="main1">
+            订单
+        </div>
+        <div id="main2">
+            我的
+        </div>
         <div class="footer">
             <dl id="sy">
                 <dt class="icon iconfont icon-shouye"></dt>
@@ -166,11 +172,20 @@
         }
     }
     xhr.send()
+    sy.onclick = function() {
+        main.style.display = 'block'
+        main1.style.display = 'none'
+        main2.style.display = 'none'
+    }
     dd.onclick = function() {
-        main.innerHTML = "订单"
+        main1.style.display = 'block'
+        main.style.display = 'none'
+        main2.style.display = 'none'
     }
     wd.onclick = function() {
-        main.innerHTML = "我的"
+        main2.style.display = 'block'
+        main.style.display = 'none'
+        main1.style.display = 'none'
     }
 </script>
 

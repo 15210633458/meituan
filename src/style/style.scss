@@ -64,6 +64,7 @@ html {
     @include width(100%);
     flex: 1;
     overflow: auto;
+    display: block;
     .input {
         @include width(90%);
         @include height(30px);
@@ -150,6 +151,14 @@ html {
             flex: 0.5;
         }
     }
+}
+
+#main1 {
+    display: none;
+}
+
+#main2 {
+    display: none;
 }
 
 .footer {
