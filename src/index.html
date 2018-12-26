@@ -26,10 +26,22 @@
             </div>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide page1"></div>
-                    <div class="swiper-slide page2"></div>
+                    <!-- <div class="swiper-slide">
+                        <dl>
+                            <dt>
+                                <img src="" alt="">
+                            </dt>
+                            <dd>
+
+                            </dd>
+                        </dl>
+                    </div> -->
+
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination">
+
+                </div>
+
             </div>
             <div class="con">
                 <div class="dls">
@@ -74,54 +86,60 @@
 <script src="./scripts/flexiable.js"></script>
 <script src="./scripts/swiper.js"></script>
 <script>
-    var swiper = new Swiper(".swiper-container", {
-            loop: true,
-            pagination: {
-                el: ".swiper-pagination",
-            }
-        })
-        //获取轮播图数据
+    //获取轮播图数据
+    var swiperWrapper = document.getElementsByClassName("swiper-wrapper")[0];
     var xhr = new XMLHttpRequest();
     xhr.open('get', 'data/swiper.json', true)
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                //console.log(xhr.responseText)
-                var data = JSON.parse(xhr.responseText);
-                var page1 = document.querySelectorAll('.page1')[0];
-                var page2 = document.querySelectorAll('.page2')[0];
-                var html = '';
+    xhr.onload = function(e) {
+        if (e.target.status == 200) {
+            var swiper = new Swiper(".swiper-container", {
+                loop: true,
+                autoplay: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                }
+            })
+            var data = JSON.parse(e.target.responseText);
+            //console.log(data)
 
-                data.page1.forEach((i) => {
-                    console.log(i)
-                    html += `<dl>
+            //页数
+            var page = data.length / 10;
+            console.log(page)
+            var html = '';
+            var arr = [];
+
+            for (var i = 0; i < page; i++) {
+                arr.push(data.splice(0, 10))
+            }
+            arr.forEach((i) => {
+                var html = `<div class="swiper-slide">`
+                html += file(i)
+                html += `</div>`
+                swiperWrapper.innerHTML += html;
+
+
+            })
+
+
+            function file(datas) {
+                return datas.map((i) => {
+                    return `<dl>
                             <dt>
                                 <img src="${i.img}" alt="">
                             </dt>
-                            <dd>${i.title}</dd>
+                            <dd>
+                                    ${i.title}
+                            </dd>
                         </dl>`
-                    console.log(html)
-                })
-                page1.innerHTML = html;
+                }).join("")
 
-                var src = '';
-                data.page2.forEach((i) => {
-                    console.log(i)
-                    src += `<dl>
-                            <dt>
-                                <img src="${i.img}" alt="">
-                            </dt>
-                            <dd>${i.title}</dd>
-                        </dl>`
-                    console.log(src)
-                })
-                page2.innerHTML = src
 
             }
         }
     }
     xhr.send()
-        //店铺渲染
+
+    //店铺渲染
     var xhr = new XMLHttpRequest();
     xhr.open('get', 'data/shop.json', true)
     xhr.onload = function(e) {
@@ -148,41 +166,6 @@
         }
     }
     xhr.send()
-
-    main.onclick = function() {
-        main.innerHTML = ` <div class="input">
-                <input type="text" placeholder="米线">
-            </div>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide page1"></div>
-                    <div class="swiper-slide page2"></div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-            <div class="con">
-                <div class="dls">
-                    <div id="dll">
-                        <dl>
-                            <dt><img src="./imgs/a1.png" alt=""></dt>
-                            <dd>
-                                <p>红烧狮子头</p>
-                                <p>
-                                    <span>12.9</span><span>免费送货</span>
-                                </p>
-                                <p>
-                                    单买价 <span>￥32</span>
-                                </p>
-                            </dd>
-                        </dl>
-                    </div>
-
-                </div>
-                <div class="more">
-                    点击查看更多
-                </div>
-            </div>`
-    }
     dd.onclick = function() {
         main.innerHTML = "订单"
     }
